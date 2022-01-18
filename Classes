@@ -1,0 +1,107 @@
+namespace Klass
+{
+    class Program5_1
+    {
+
+        class Neophyte
+        {
+            protected string weapon = "Bolt pistol";
+            protected string typeofarmy = "Neophytes";
+            protected string rank = "PVT";
+
+            public Neophyte() { }
+            public Neophyte(string weapon, string typeofarmy, string rank)
+            {
+                this.weapon = weapon;
+                this.typeofarmy = typeofarmy;
+                this.rank = rank;
+            }
+
+            public virtual void ShowInfo()
+            {
+                Console.WriteLine("Weapon: {0}", this.weapon);
+                Console.WriteLine("Type Of Army: {0}", this.typeofarmy);
+                Console.WriteLine("Rank: {0}", this.rank);
+            }
+        }
+        class SpaceMarine : Neophyte
+        {
+            public SpaceMarine() { weapon = "Bolter"; typeofarmy = "Astartes"; rank = "PV2"; }
+            public SpaceMarine(string weapon, string typeofarmy, string rank) : base(weapon, typeofarmy, rank) { }
+
+            public override void ShowInfo()
+            {
+                Console.WriteLine("Weapon: {0}", weapon);
+                Console.WriteLine("Type Of Army: {0}", typeofarmy);
+                Console.WriteLine("Weapon: {0}", rank);
+            }
+        }
+        class Fighter : Neophyte
+        {
+            public Fighter() { weapon = "Chainsword"; typeofarmy = "Guardians"; rank = "SGT"; }
+            public Fighter(string weapon, string typeofarmy, string rank) : base(weapon, typeofarmy, rank) { }
+
+            public override void ShowInfo()
+            {
+                Console.WriteLine("Weapon: {0}", weapon);
+                Console.WriteLine("Type Of Army: {0}", typeofarmy);
+                Console.WriteLine("Weapon: {0}", rank);
+            }
+        }
+        class Warrior : Neophyte
+        {
+            public Warrior() { weapon = "Tin can lid"; typeofarmy = "Katachans"; rank = "PFC"; }
+            public Warrior(string weapon, string typeofarmy, string rank) : base(weapon, typeofarmy, rank) { }
+
+            public override void ShowInfo()
+            {
+                Console.WriteLine("Weapon: {0}", weapon);
+                Console.WriteLine("Type Of Army: {0}", typeofarmy);
+                Console.WriteLine("Weapon: {0}", rank);
+            }
+        }
+        class Paratrooper : Neophyte
+        {
+            public Paratrooper() { weapon = "Storm Ruler"; typeofarmy = "Jumpers"; rank = "SPC"; }
+            public Paratrooper(string weapon, string typeofarmy, string rank) : base(weapon, typeofarmy, rank) { }
+
+            public override void ShowInfo()
+            {
+                Console.WriteLine("Weapon: {0}", weapon);
+                Console.WriteLine("Type Of Army: {0}", typeofarmy);
+                Console.WriteLine("Weapon: {0}", rank);
+            }
+        }
+        class Strategist : Neophyte
+        {
+            public Strategist() { weapon = "Strategic Sapper Paddle"; typeofarmy = "Death Corp Krieg"; rank = "SGT"; }
+            public Strategist(string weapon, string typeofarmy, string rank) : base(weapon, typeofarmy, rank) { }
+
+            public override void ShowInfo()
+            {
+                Console.WriteLine("Weapon: {0}", weapon);
+                Console.WriteLine("Type Of Army: {0}", typeofarmy);
+                Console.WriteLine("Weapon: {0}", rank);
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+            Neophyte a = new Neophyte();
+            a.ShowInfo();
+            SpaceMarine b = new SpaceMarine();
+            b.ShowInfo();
+            Fighter c = new Fighter();
+            c.ShowInfo();
+            Warrior d = new Warrior();
+            d.ShowInfo();
+            Paratrooper e = new Paratrooper();
+            e.ShowInfo();
+            Strategist f = new Strategist();
+            f.ShowInfo();
+
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+    }
+}
