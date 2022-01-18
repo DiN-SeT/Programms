@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+
+namespace Викторина
+{
+    static class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rnd = new Random();
+            List<Question> q = new List<Question>();
+            q.Add(new Question("Что не объединяет языки C#, F#, Visual Basic .NET?", new string[] { "Их изобрела Microsoft", "Они используют строгую типизацию", "Они работают на платформе .NET", "Они функциональные" }, 3));
+            q.Add(new Question("Какой тип возвращаемого значения имеет функция, которая не возвращает значение?", new string[] { "null", "void", "any", "undefined" }, 1));
+            q.Add(new Question("Как могут инициализироваться readonly поля экземпляра класса?", new string[] { "В конструкторе", "В статических методах", "В instance методах", "С помощью свойств", "При объявлении" }, 0));
+            q.Add(new Question("На дворе 1999 год. У вас есть файл размером 1,2 МБ, который нужно передать другому человеку. Чем воспользуетесь?", new string[] { "Флоппи-диск 8”", "CD-RW", "Дискета 3,5", "Флоппи-диск 5,25" }, 2));
+            q.Add(new Question("Язык, созданный компанией Apple для разработчиков iOS и macOS", new string[] { "Objective-C”", "iLang", "Xcode 6", "Swift" }, 3));
+            q.Add(new Question("На этом языке пишут всё — от операционных систем и драйверов до игр и сервисов", new string[] { "JavaScript”", "C++", "Python", "Delphi" }, 1));
+            q.Add(new Question("Многопоточный язык, который создала компания Google", new string[] { "Android”", "Golang", "Clojure", "Haskell" }, 1));
+            q.Add(new Question("Какие диаграммы служат основой для генерации кода на целевой языке программирования?", new string[] { "Диаграмы Вариантов использования”", "Диаграмы последовательности", "Диаграммы классов", "Диаграмы состояний" }, 2));
+            q.Add(new Question("По диаграмме изображается пакет?", new string[] { "Прямокутником с закругленными углами”", "Прямокутником", "В виде папки с закладкой", "В виде куба" }, 2));
+            q.Add(new Question("Как правильно добавить класс на диаграмму классов?", new string[] { "Выполнить команду Tools> Create> Class", "Выполнить Команду Tools> NewClass" }, 0));
+            while (q.Count > 0)
+            {
+                Question current_question = q[rnd.Next(0, q.Count)];
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(current_question.question);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                string input = WriteAndGetAnswer(current_question);
+                if (input.ToUpper() == "Q")
+                    break;
+                if (input == current_question.correct_answer.ToString())
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Верный ответ!");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Неверно! Правильный ответ: {current_question.answers[current_question.correct_answer]}");
+                }
+                Console.ForegroundColor = ConsoleColor.Gray;
+                q.Remove(current_question);
+                Console.WriteLine();
+            }
+            Console.WriteLine("Окончание викторины!");
+            Console.ReadKey();
+        }
+
+        private static string WriteAndGetAnswer(Question q)
+        {
+            Random rnd = new Random();
+            List<string> s = new List<string>(q.answers);
+            int len = s.Count + 1;
+            int new_correct_answer = 0;
+            Console.ForegroundColor = ConsoleColor.White;
+            for (int i = 1; i < len; i++)
+            {
+                string str = s[rnd.Next(0, s.Count)];
+                if (str == q.answers[q.correct_answer])
+                    new_correct_answer = i;
+                Console.WriteLine($"{i}.{str}");
+                s.Remove(str);
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Введите номер ответа:");
+            string input = Console.ReadLine();
+            if (new_correct_answer.ToString() == input)
+                return q.correct_answer.ToString();
+            else
+                return input;
+        }
+    }
+
+    public class Question
+    {
+        public string question;
+        public string[] answers;
+        public int correct_answer;
+
+        public Question(string question, string[] answers, int correct_answer)
+        {
+            this.question = question;
+            this.answers = answers;
+            this.correct_answer = correct_answer;
+        }
+    }
+}
