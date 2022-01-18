@@ -1,0 +1,65 @@
+using System;
+using System.Threading.Tasks;
+using Discord;
+using Discord.WebSocket;
+
+namespace Discord_Bot_Tut
+{
+    class Program
+    {
+        DiscordSocketClient client;
+        static void Main(string[] args)
+            => new Program().MainAsync().GetAwaiter().GetResult();
+
+        private async Task MainAsync()
+        {
+            client = new DiscordSocketClient();
+            client.MessageReceived += CommandsHandler;
+            client.Log += Log;
+
+            var token = "OTE1Mjg5Mzk5MzQ2OTk5Mjk2.YaZbrg.ICo0q8zPIzb0-FbpW0WuYxrTiok";
+
+            await client.LoginAsync(TokenType.Bot, token);
+            await client.StartAsync();
+
+            Console.ReadLine();
+        }
+
+        private Task Log(LogMessage msg)
+        {
+            Console.WriteLine(msg.ToString());
+            return Task.CompletedTask;
+        }
+
+        private Task CommandsHandler(SocketMessage msg)
+        {
+            if (!msg.Author.IsBot)
+                switch (msg.Content)
+                {
+                    case "!привет":
+                        {
+                            msg.Channel.SendMessageAsync($"Категорически приветствую");
+                            break;
+                        }
+                    case "!CP":
+                        {
+                            msg.Channel.SendMessageAsync($"https://sun9-67.userapi.com/impg/8vR8hYNgVLMb-ahARCljYus00_qWdH7KZbkEZg/u-AwKtNUsoU.jpg?size=1079x1053&quality=96&sign=4132f7741a24efdbba138f0b5cf13a8b&type=album");
+                            break;
+                        }
+                    case "!мне нужен фулл":
+                        {
+                            msg.Channel.SendMessageAsync($"https://2ch.hk/b/arch/2021-06-15/src/248931025/16237123249050.gif");
+                            break;
+                        }
+                    case "!действие":
+                        {
+                            Random rnd = new Random();
+                            msg.Channel.SendMessageAsync($"Social Credit {rnd.Next(-1000, 1000)}");
+                            break;
+                        }
+                }
+            return Task.CompletedTask;
+        }
+
+    }
+}
